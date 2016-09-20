@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Star = (props) => {
+const Rate = (props) => {
   const { changeRate, id, isOnOver, rate } = props; 
   let classColor; 
 
@@ -22,12 +22,12 @@ const Star = (props) => {
   );
 }
 
-const StarWidget = (props) => {
+const Rating = (props) => {
   return (
-    <div className="StarWidget">
+    <div className="Rating">
       {[...Array(props.qty).keys()]
         .map((index) =>
-          <Star 
+          <Rate 
             key={ index } 
             id={ index } 
             {...props}  
@@ -38,4 +38,4 @@ const StarWidget = (props) => {
   );
 }
 
-export default StarWidget; 
+export default Rating; 

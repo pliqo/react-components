@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StarWidget from './StarWidget';
+import Rating from './Rating';
 import './App.css';
 
 class App extends Component {
@@ -66,7 +66,7 @@ class App extends Component {
 
   render() {
     return (
-      <StarWidget 
+      <Rating
         changeRate={ this.changeRate } 
         isOnOver={ this.state.isOnOver }
         qty={ this.state.qty }  
