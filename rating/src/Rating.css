@@ -1,0 +1,16 @@
+.Rating {
+  /**/
+}
+
+.Rate {
+
+}
+
+.Rate--active {
+  color: red;
+}
+
+.Rate--onover {
+  color: orange;
+  cursor: pointer;
+}

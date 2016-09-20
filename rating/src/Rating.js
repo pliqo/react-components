@@ -1,13 +1,14 @@
 import React from 'react';
+import './Rating.css';
 
 const Rate = (props) => {
   const { changeRate, id, isOnOver, rate } = props; 
   let classColor; 
 
   if(isOnOver && rate > id) {
-    classColor = "Star-hover";
+    classColor = "Rate--onover";
   } else if (rate > id) { 
-    classColor = "Star-on";
+    classColor = "Rate--active";
   } 
 
   return (
