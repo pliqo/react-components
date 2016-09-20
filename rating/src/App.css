@@ -1,0 +1,17 @@
+.App {
+  /**/
+}
+
+.StarWidget {
+  /**/
+}
+
+.Star-on {
+  color: red;
+}
+
+.Star-hover {
+  color: orange;
+  cursor: pointer;
+}
+
