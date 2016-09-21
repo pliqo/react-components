@@ -15,7 +15,7 @@ class App extends Component {
     this.changeRate = this.changeRate.bind(this);
   }
 
-  loadRates() {
+  loadRates() {   
     // url is defined in the root component, otherwise it doesn't work
     fetch(this.props.url)
       .then(response => response.json())
