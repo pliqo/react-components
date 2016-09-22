@@ -9,7 +9,7 @@ const Rate = (props) => {
     classColor = "Rate--onover";
   } else if (rate > id) { 
     classColor = "Rate--active";
-  } 
+  }
 
   return (
     <span 
