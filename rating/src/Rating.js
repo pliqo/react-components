@@ -23,7 +23,7 @@ const Rate = (props) => {
   );
 }
 
-const Rating = (props) => {
+const Rating = (props) => {  
   return (
     <div className="Rating">
       {[...Array(props.qty).keys()]
@@ -39,4 +39,5 @@ const Rating = (props) => {
   );
 }
 
-export default Rating; 
+export default Rating;
+export { Rate }; 

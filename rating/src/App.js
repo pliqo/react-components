@@ -5,6 +5,9 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.url = this.props.initialUrl;
+    this.pollInterval = this.props.initialPollInterval;
+    // if fetching doesn't work...
     this.state = {   
       // by fetching unknown elements you'd want to leave an empty array like: data: []
       isOnOver: props.initialIsOnOver,
@@ -15,9 +18,8 @@ class App extends Component {
     this.changeRate = this.changeRate.bind(this);
   }
 
-  loadRates() {   
-    // url is defined in the root component, otherwise it doesn't work
-    fetch(this.props.url)
+  loadRates() {
+    fetch(this.url)
       .then(response => response.json())
       .then(data => { 
         this.setState({ 
@@ -27,13 +29,13 @@ class App extends Component {
           tempRate: data.tempRate
         }); 
       })
-      .catch(err => console.error(this.props.url, err.toString()))
+      .catch(err => console.error(this.url, err.toString()))
   }
 
   componentDidMount() {
     this.loadRates();
     // load defaults only once. If you need a continuos polling, uncomment the line below
-    // setInterval(() => this.loadRates(), this.props.pollInterval);
+    // setInterval(() => this.loadRates(), this.pollInterval);
   }
 
   changeRate(action, rate) {
@@ -54,7 +56,7 @@ class App extends Component {
         rate = this.state.tempRate;
         break;
       default :
-        return;
+        return false;
     }
 
     this.setState({
@@ -71,20 +73,24 @@ class App extends Component {
         isOnOver={ this.state.isOnOver }
         qty={ this.state.qty }  
         rate={ this.state.rate }
-      />
+       />
     );
   }
 }
 
 App.propTypes = {
+  initialUrl: React.PropTypes.string,
+  initialPollInterval: React.PropTypes.number,
   initialIsOnOver: React.PropTypes.bool,
   initialQty: React.PropTypes.number,
   initialRate: React.PropTypes.number,
   initialTempRate: React.PropTypes.number
 }
 
-// if fetching doesn't work...
+// Give some defaults
 App.defaultProps = {
+  initialUrl: "https://raw.githubusercontent.com/nickbalestra/appUno/master/initialdata.json",
+  initialPollInterval: 2000,
   initialIsOnOver: false,
   initialQty: 2,
   initialRate: 1,

@@ -4,6 +4,6 @@ import App from './App';
 import './index.css';
 
 render(
-  <App url="https://raw.githubusercontent.com/nickbalestra/appUno/master/initialdata.json" pollInterval={2000} />,
+  <App />,
   document.getElementById('root')
 );
