@@ -1,9 +1,9 @@
 // no need to explictly "unmock" since automock is disabled by default.
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-addons-test-utils';
 import { shallow, mount, render } from 'enzyme';
-import Rating from './Rating';
+import Rating from '../Rating';
 
 it('renders without crashing (with Shallow)', () => {
   shallow(<Rating />);
@@ -12,10 +12,4 @@ it('renders without crashing (with Shallow)', () => {
 it('renders a class named ".Rating"', () => {
   const wrapper = shallow(<Rating />);
   expect(wrapper.is('.Rating')).toBe(true);
-});
-
-it('renders a span', () => {
-  const wrapper = shallow(<Rating />);
-  const aSpan = <span class="Rate--active" />;
-  expect(wrapper.contains(aSpan)).toEqual(true);
 });

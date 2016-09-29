@@ -40,4 +40,4 @@ const Rating = (props) => {
 }
 
 export default Rating;
-export { Rate }; 
+export { Rate };
