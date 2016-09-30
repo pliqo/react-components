@@ -1,43 +1,112 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Rating.css';
 
-const Rate = (props) => {
-  const { changeRate, id, isOnOver, rate } = props; 
-  let classColor; 
-
-  if(isOnOver && rate > id) {
-    classColor = "Rate--onover";
-  } else if (rate > id) { 
-    classColor = "Rate--active";
+class Rating extends Component {
+  constructor(props) {
+    super(props);
+    this.url = this.props.initialUrl;
+    this.pollInterval = this.props.initialPollInterval;
+    // if fetching doesn't work...
+    this.state = {   
+      // by fetching unknown elements you'd want to leave an empty array like: data: []
+      isOnOver: props.initialIsOnOver,
+      qty: props.initialQty,
+      rate: props.initialRate,
+      tempRate: props.initialTempRate
+    };
+    this.changeRate = this.changeRate.bind(this);
   }
 
-  return (
-    <span 
-      onClick={ changeRate.bind(this, 'change', id + 1) } 
-      onMouseOver={ changeRate.bind(this, 'show', id + 1) } 
-      onMouseOut={ changeRate.bind(this, 'reset') }
-      className={ classColor }
-    >
-      { '\u2605' }
-    </span>
-  );
+  loadRates() {
+    fetch(this.url)
+      .then(response => response.json())
+      .then(data => { 
+        this.setState({ 
+          isOnOver: data.isOnOver,
+          qty: data.qty,
+          rate: data.rate,
+          tempRate: data.tempRate
+        }); 
+      })
+      .catch(err => console.error(this.url, err.toString()))
+  }
+
+  componentDidMount() {
+    this.loadRates();
+    // load defaults only once. If you need a continuos polling, uncomment the line below
+    // setInterval(() => this.loadRates(), this.pollInterval);
+  }
+
+  changeRate(action, rate) {
+    let isOnOver; 
+    let tempRate;
+
+    switch(action) {
+      case 'change':
+        isOnOver = false;
+        tempRate = rate;
+        break;
+      case 'show':
+        isOnOver = true;
+        tempRate = this.state.rate;
+        break;
+      case 'reset':
+        isOnOver = false;
+        rate = this.state.tempRate;
+        break;
+      default :
+        return false;
+    }
+
+    this.setState({
+     isOnOver,
+     rate, 
+     tempRate
+    });
+  }
+
+  render() {
+    return (
+      <div className="Rating">
+        {[...Array(this.state.qty).keys()]
+          .map((index) =>
+            <span 
+              key={ index }
+              onClick={ this.changeRate.bind(this, 'change', index + 1) } 
+              onMouseOver={ this.changeRate.bind(this, 'show', index + 1) } 
+              onMouseOut={ this.changeRate.bind(this, 'reset') }
+              className={ 
+                (this.state.isOnOver && this.state.rate > index) ? 
+                ( 'Rate--onover' ) : 
+                ( (this.state.rate > index) ? 'Rate--active' : '') 
+              }
+            >
+              { '\u2605' }
+            </span>
+          )
+        }     
+      </div>
+    )
+  }
 }
 
-const Rating = (props) => {  
-  return (
-    <div className="Rating">
-      {[...Array(props.qty).keys()]
-        .map((index) =>
-          <Rate 
-            key={ index } 
-            id={ index } 
-            {...props}  
-          />
-        )
-      }
-    </div>
-  );
+Rating.propTypes = {
+  initialUrl: React.PropTypes.string,
+  initialPollInterval: React.PropTypes.number,
+  initialIsOnOver: React.PropTypes.bool,
+  initialQty: React.PropTypes.number,
+  initialRate: React.PropTypes.number,
+  initialTempRate: React.PropTypes.number
+}
+
+// Give some defaults
+Rating.defaultProps = {
+  initialUrl: "https://raw.githubusercontent.com/nickbalestra/appUno/master/initialdata.json",
+  initialPollInterval: 2000,
+  initialIsOnOver: false,
+  initialQty: 2,
+  initialRate: 1,
+  initialTempRate: 0
 }
 
 export default Rating;
-export { Rate };
