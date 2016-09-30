@@ -69,13 +69,13 @@ class App extends Component {
 
   render() {
     return (
-      <Rating
+     <Rating
         changeRate={ this.changeRate } 
         isOnOver={ this.state.isOnOver }
-        qty={ this.state.qty }  
+        qty={ this.state.qty }
         rate={ this.state.rate }
-       />
-    );
+      />
+    )
   }
 }
 
