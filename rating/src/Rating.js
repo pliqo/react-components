@@ -103,7 +103,7 @@ Rating.propTypes = {
 
 // Give some defaults
 Rating.defaultProps = {
-  initialUrl: "https://raw.githubusercontent.com/nickbalestra/appUno/master/initialdata.json",
+  initialUrl: "https://raw.githubusercontent.com/pliqo/react-components/master/rating/initialdata.json",
   initialPollInterval: 2000,
   initialIsOnOver: false,
   initialQty: 2,
