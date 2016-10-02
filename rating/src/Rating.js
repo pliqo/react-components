@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Rating.css';
 
+
+
 class Rating extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Rating extends Component {
       rate: props.initialRate,
       tempRate: props.initialTempRate
     };
-    this.changeRate = this.changeRate.bind(this);
+    this.changeRate = this._handleRates.bind(this);
   }
 
   loadRates() {
@@ -37,7 +39,7 @@ class Rating extends Component {
     // setInterval(() => this.loadRates(), this.pollInterval);
   }
 
-  changeRate(action, rate) {
+  _handleRates(action, rate) {
     let isOnOver; 
     let tempRate;
 
