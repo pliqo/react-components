@@ -22,7 +22,7 @@ it('renders a class named ".Rating"', () => {
   expect(wrapper.is('.Rating')).toBe(true);
 });
 
-it('adds a class when clicking', () => {
+it('renders N spans as default', () => {
   const div = TestUtils.renderIntoDocument(
     <Rating />
   );
@@ -32,6 +32,14 @@ it('adds a class when clicking', () => {
   var span = TestUtils.scryRenderedDOMComponentsWithTag(div,'span');
   //console.log(span);
   expect(span.length).toBe(2);  
+});
+
+it('adds a class when clicked', () => {
+  const div = TestUtils.renderIntoDocument(
+    <Rating />
+  );
+  var span = TestUtils.scryRenderedDOMComponentsWithTag(div,'span');
+  //expect(span.length).toBe(2);
   var aspan = TestUtils.scryRenderedDOMComponentsWithClass(div,'Rate--active');
   //console.log(aspan);  
   expect(aspan.length).toBe(1); 
@@ -39,21 +47,21 @@ it('adds a class when clicking', () => {
   var cspan = TestUtils.scryRenderedDOMComponentsWithClass(div,'Rate--active');
   //console.log(cspan);
   expect(cspan.length).toBe(1);  
+  expect(cspan.length).not.toBe(2);
+
   TestUtils.Simulate.click(span[1]);
   var ccspan = TestUtils.scryRenderedDOMComponentsWithClass(div,'Rate--active');
   //console.log(ccspan);
   expect(ccspan.length).toBe(2); 
   //expect(div.changeRate).toBeCalled();
-  //var allComponentsWithType = TestUtils.scryRenderedComponentsWithType(div, 'Rate');
-  //console.log(allComponentsWithType);
 });
 
-it('adds a class when hovering', () => {
+it('adds a class when hovered', () => {
   const div = TestUtils.renderIntoDocument(
     <Rating />
   );
   var span = TestUtils.scryRenderedDOMComponentsWithTag(div,'span');
-  expect(span.length).toBe(2);  
+  //expect(span.length).toBe(2);  
   var aspan = TestUtils.scryRenderedDOMComponentsWithClass(div,'Rate--onover');
   expect(aspan.length).toBe(0); 
   TestUtils.Simulate.mouseOver(span[0]);
@@ -64,9 +72,30 @@ it('adds a class when hovering', () => {
   expect(ccspan.length).toBe(2); 
 });
 
-it('when rendered then changeRate should be called', () => {
-  const wrRatinger = mount(<Rating />);
-  console.log(wrRatinger.find('span'));
+it('returns proper response', () => {
+  const div = mount(<Rating />);
+  //console.log(div);
+  expect(div.node.handleAction('hover', 2)).toBe(true);
+  expect(div.node.handleAction('onOver', 2)).not.toBe(true);
+  //console.log(wrRatinger.find('span'));
+})
+
+it('propagates correct state', () => {
+  const div = mount(<Rating />);
+  console.log(div.state().tempRate);
+  //console.log(div.props());
+  expect(div.node.handleAction('hover', 2)).toBe(true);
+  //expect(div.props().rate).toBe(2);
+  expect(div.state().rate).toBe(2);
+  expect(div.node.handleAction('clicked', 1)).toBe(true);
+  console.log(div.state().tempRate);
+  expect(div.state().rate).toBe(1);
+  //var span = div.find('span');
+  //console.log(span.at(0));
+  //console.log(div.state().rate);
+  //TestUtils.Simulate.mouseOver(span.at(1));
+  //expect(span.at(1).hasClass('Rate--onover')).toBe(true);
+  //console.log(wrRatinger.find('span'));
 })
 
 //it('expects qty prop to be 2 (with Shallow)', () => {

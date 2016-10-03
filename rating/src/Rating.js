@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './Rating.css';
 
-
-
 class Rating extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +14,7 @@ class Rating extends Component {
       rate: props.initialRate,
       tempRate: props.initialTempRate
     };
-    this.changeRate = this._handleRates.bind(this);
+    this.handleAction = this._handleAction.bind(this);
   }
 
   loadRates() {
@@ -39,16 +37,16 @@ class Rating extends Component {
     // setInterval(() => this.loadRates(), this.pollInterval);
   }
 
-  _handleRates(action, rate) {
+  _handleAction(action, rate) {
     let isOnOver; 
     let tempRate;
 
     switch(action) {
-      case 'change':
+      case 'clicked':
         isOnOver = false;
         tempRate = rate;
         break;
-      case 'show':
+      case 'hover':
         isOnOver = true;
         tempRate = this.state.rate;
         break;
@@ -65,6 +63,8 @@ class Rating extends Component {
      rate, 
      tempRate
     });
+
+    return true;
   }
 
   render() {
@@ -74,9 +74,9 @@ class Rating extends Component {
           .map((index) =>
             <span 
               key={ index }
-              onClick={ this.changeRate.bind(this, 'change', index + 1) } 
-              onMouseOver={ this.changeRate.bind(this, 'show', index + 1) } 
-              onMouseOut={ this.changeRate.bind(this, 'reset') }
+              onClick={ this.handleAction.bind(this, 'clicked', index + 1) } 
+              onMouseOver={ this.handleAction.bind(this, 'hover', index + 1) } 
+              onMouseOut={ this.handleAction.bind(this, 'reset') }
               className={ 
                 (this.state.isOnOver && this.state.rate > index) ? 
                 ( 'Rate--onover' ) : 
