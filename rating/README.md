@@ -1,1 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+-----
+A classic rating component
+-----
+
+
+PS.: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
