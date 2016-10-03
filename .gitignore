@@ -10,6 +10,7 @@ coverage
 build
 
 # misc
+.editorconfig
 .DS_Store
 .vscode
 npm-debug.log
