@@ -1,5 +1,6 @@
 # React-Components
 
 - - - - - - - - - - - - - -
-Some "indipendent" components built during the learning phase
+Some "indipendent" components you can easily integrate in your projects.
+More will come soon
 - - - - - - - - - - - - - - 
